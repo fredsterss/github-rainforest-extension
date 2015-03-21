@@ -6,7 +6,8 @@
     return function() {
       return $.ajax({
         type: "POST",
-        url: "https://app.rainforestqa.com/api/1/runs",
+        url: "https://app.rainforest.dev/api/1/runs",
+        dataType: "json",
         data: {
           tests: "all"
         },
