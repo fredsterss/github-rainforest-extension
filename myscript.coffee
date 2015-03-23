@@ -1,4 +1,11 @@
-$('.branch-action').before("<button class='btn run-rainforest'>Run Rainforest Suite</button>")
+#
+# TODO:
+# - [ ] show current running status
+# - [ ] allow one to run against tags
+# - [ ] allow one to run against envs
+#
+
+$('.discussion-timeline-actions').before("<button class='btn run-rainforest'>Run Rainforest Suite</button>")
 $('.run-rainforest').on "click", =>
   $.ajax
     type: "POST"
