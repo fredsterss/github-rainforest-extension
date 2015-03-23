@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Rainforest Github Pull Request extnesion",
+  "name": "Rainforest Github Pull Request extension",
   "description": "This extension lets you run your RainforestQA tests directly from a Pull Request on Github!",
   "version": "1.0",
   "permissions": [
