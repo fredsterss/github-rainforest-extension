@@ -1,13 +1,8 @@
 #
-# TODO:
-# - [x] show current running status
-# - [x] allow one to run against tags
-# - [x] allow one to run against envs
+# Helper functions
 #
 
-# insert rainforest holder div
-$('.discussion-timeline-actions').before(@holderTmpl())
-
+# generic ajax call helper
 makeAjaxRequest = (options) ->
   $.ajax
     type: options.type || "GET"
@@ -18,16 +13,35 @@ makeAjaxRequest = (options) ->
       CLIENT_TOKEN: "08b8bc4f0cec845a37f9266918e83e98"
     success: (data) => options.success?(data)
 
-renderRun = (run) ->
-  $(".rainforest-run-history").append @runHistoryItemTmpl(run)
+renderRun = (run, key) ->
+  tmpl = if key is "complete" then @completeRunsTmpl else @inProgressRunsTmpl
+  $(".rainforest-#{key}-runs").before(tmpl()) unless $(".rainforest-#{key}-title").length
+  $(".rainforest-#{key}-runs").append @runHistoryItemTmpl(run)
 
-# get client so we can see what is currently running
+
+#
+# Build UI
+#
+
+# insert rainforest holder div
+$('.discussion-timeline-actions').before(@holderTmpl())
+
+# get and render current runs
 makeAjaxRequest
   endpoint: "runs"
-  data: {state: "in_progress"}
-  success: (data) => renderRun(run) for run, i in data
+  data:
+    state: "in_progress"
+  success: (data) => renderRun(run, "in-progress") for run, i in data
 
-# get envs
+# get and render recent runs
+makeAjaxRequest
+  endpoint: "runs"
+  data:
+    state: "complete"
+    page_size: 5
+  success: (data) => renderRun(run, "complete") for run, i in data
+
+# get and render env options
 makeAjaxRequest 
   endpoint: "environments"
   success: (data) ->
@@ -35,7 +49,7 @@ makeAjaxRequest
       selected = if env.default is true then "selected" else ""
       $('.rainforest-envs').append "<option value='#{env.id}' #{selected}>#{env.name}</option>"
 
-# get tags
+# get and render tag options
 makeAjaxRequest 
   endpoint: "tests/tags"
   success: (data) ->
@@ -57,4 +71,4 @@ $('.run-rainforest').on "click", ->
     type: "POST"
     endpoint: "runs"
     data: requestOptions
-    success: (data) => renderRun(data)
+    success: (data) => renderRun(data, "in-progress")

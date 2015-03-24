@@ -2,8 +2,6 @@
 (function() {
   var makeAjaxRequest, renderRun;
 
-  $('.discussion-timeline-actions').before(this.holderTmpl());
-
   makeAjaxRequest = function(options) {
     return $.ajax({
       type: options.type || "GET",
@@ -21,9 +19,16 @@
     });
   };
 
-  renderRun = function(run) {
-    return $(".rainforest-run-history").append(this.runHistoryItemTmpl(run));
+  renderRun = function(run, key) {
+    var tmpl;
+    tmpl = key === "complete" ? this.completeRunsTmpl : this.inProgressRunsTmpl;
+    if (!$(".rainforest-" + key + "-title").length) {
+      $(".rainforest-" + key + "-runs").before(tmpl());
+    }
+    return $(".rainforest-" + key + "-runs").append(this.runHistoryItemTmpl(run));
   };
+
+  $('.discussion-timeline-actions').before(this.holderTmpl());
 
   makeAjaxRequest({
     endpoint: "runs",
@@ -36,7 +41,26 @@
         _results = [];
         for (i = _i = 0, _len = data.length; _i < _len; i = ++_i) {
           run = data[i];
-          _results.push(renderRun(run));
+          _results.push(renderRun(run, "in-progress"));
+        }
+        return _results;
+      };
+    })(this)
+  });
+
+  makeAjaxRequest({
+    endpoint: "runs",
+    data: {
+      state: "complete",
+      page_size: 5
+    },
+    success: (function(_this) {
+      return function(data) {
+        var i, run, _i, _len, _results;
+        _results = [];
+        for (i = _i = 0, _len = data.length; _i < _len; i = ++_i) {
+          run = data[i];
+          _results.push(renderRun(run, "complete"));
         }
         return _results;
       };
@@ -88,7 +112,7 @@
       data: requestOptions,
       success: (function(_this) {
         return function(data) {
-          return renderRun(data);
+          return renderRun(data, "in-progress");
         };
       })(this)
     });
