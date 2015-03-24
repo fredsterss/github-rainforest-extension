@@ -2,6 +2,7 @@
 Chrome extension to squirt Rainforest into Pull Requests
 
 ## HOW I UZE????
+```txt
                                        .....'',;;::cccllllllllllllcccc:::;;,,,''...'',,'..
                             ..';cldkO00KXNNNNXXXKK000OOkkkkkxxxxxddoooddddddxxxxkkkkOO0XXKx:.
                       .':ok0KXXXNXK0kxolc:;;,,,,,,,,,,,;;,,,''''''',,''..              .'lOXKd'
@@ -50,5 +51,5 @@ Chrome extension to squirt Rainforest into Pull Requests
               .,coxO0KXXXXXXXKK0OOxdoc:,..
                         ...
                         
-                        
+```                        
 http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system
