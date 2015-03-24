@@ -6,7 +6,8 @@
   "version": "1.0",
   "permissions": [
     "activeTab",
-    "https://app.rainforestqa.com/"
+    "https://app.rainforestqa.com/",
+    "https://app.rainforest.dev/"
   ],
   "content_scripts": [
     {
