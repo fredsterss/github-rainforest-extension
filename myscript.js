@@ -26,11 +26,10 @@
   }, (function(_this) {
     return function(data) {
       var i, run, _i, _len, _results;
-      console.log(data);
       _results = [];
       for (i = _i = 0, _len = data.length; _i < _len; i = ++_i) {
         run = data[i];
-        _results.push($(".rainforest-run-history").append("<li> <code> <a href='" + run.frontend_url + "'>run " + run.id + "</a>: " + run.requested_tests.length + " tests. Run " + run.result + ". </code> </li>"));
+        _results.push($(".rainforest-run-history").append("<li> <code> <a href='" + run.frontend_url + "'>run " + run.id + "</a>: " + run.requested_tests.length + " tests against " + run.environment.name + ". Run " + run.result + ". </code> </li>"));
       }
       return _results;
     };

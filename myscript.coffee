@@ -25,13 +25,12 @@ ajaxHelper = (type, endpoint, data, cb) ->
 
 # get client so we can see what is currently running
 ajaxHelper "GET", "runs", {state: "complete"}, (data) =>
-  console.log data
   for run, i in data
     $(".rainforest-run-history").append "
       <li>
         <code>
           <a href='#{run.frontend_url}'>run #{run.id}</a>: 
-          #{run.requested_tests.length} tests.
+          #{run.requested_tests.length} tests against #{run.environment.name}.
           Run #{run.result}.
         </code>
       </li>"
