@@ -6,59 +6,44 @@
 #
 
 # insert rainforest holder div
-$('.discussion-timeline-actions').before("
-  <div class='rainforest-info-holder'>
-    <p>Current in progress runs:</p>
-    <ul class='rainforest-run-history'></ul>
+$('.discussion-timeline-actions').before(@holderTmpl())
 
-    <p>Run your tests:</p>
-    <label>Env:</label>
-    <select class='rainforest-envs'></select>
-
-    <label>Tag:</label>
-    <select class='rainforest-tags'>
-      <option value='all'>All tests</option>
-    </select>
-    <br>
-    <button class='btn run-rainforest'>Run Rainforest Suite</button>
-  </div>")
-
-ajaxHelper = (type, endpoint, data, cb) ->
+makeAjaxRequest = (options) ->
   $.ajax
-    type: type
-    url: "https://app.rainforest.dev/api/1/#{endpoint}"
+    type: options.type || "GET"
+    url: "https://app.rainforestqa.com/api/1/#{options.endpoint}"
     dataType: "json"
-    data: data
+    data: options.data || {}
     headers:
       CLIENT_TOKEN: "08b8bc4f0cec845a37f9266918e83e98"
-    success: (data) => cb?(data)
+    success: (data) => options.success?(data)
 
 renderRun = (run) ->
-  $(".rainforest-run-history").append "
-    <li>
-      <code>
-        <a href='#{run.frontend_url}'>run #{run.id}</a>: 
-        #{run.requested_tests.length} tests against #{run.environment.name}.
-        Run #{run.state}, #{run.result}.
-      </code>
-    </li>"
+  $(".rainforest-run-history").append @runHistoryItemTmpl(run)
 
 # get client so we can see what is currently running
-ajaxHelper "GET", "runs", {state: "in_progress"}, (data) => renderRun(run) for run, i in data
+makeAjaxRequest
+  endpoint: "runs"
+  data: {state: "in_progress"}
+  success: (data) => renderRun(run) for run, i in data
 
 # get envs
-ajaxHelper "GET", "environments", {}, (data) =>
-  for env, i in data
-    selected = if env.default is true then "selected" else ""
-    $('.rainforest-envs').append "<option value='#{env.id}' #{selected}>#{env.name}</option>"
+makeAjaxRequest 
+  endpoint: "environments"
+  success: (data) ->
+    for env, i in data
+      selected = if env.default is true then "selected" else ""
+      $('.rainforest-envs').append "<option value='#{env.id}' #{selected}>#{env.name}</option>"
 
 # get tags
-ajaxHelper "GET", "tests/tags", {}, (data) =>
-  for tag, i in data
-    $('.rainforest-tags').append "<option value='#{tag.name}'>#{tag.name}</option>"
+makeAjaxRequest 
+  endpoint: "tests/tags"
+  success: (data) ->
+    for tag, i in data
+      $('.rainforest-tags').append "<option value='#{tag.name}'>#{tag.name}</option>"
 
 # add listener to run rainforest button
-$('.run-rainforest').on "click", =>
+$('.run-rainforest').on "click", ->
   env = $('.rainforest-envs').val()
   tag = $('.rainforest-tags').val()
 
@@ -68,4 +53,8 @@ $('.run-rainforest').on "click", =>
   else
     requestOptions["tags"] = [tag]
   
-  ajaxHelper "POST", "runs", requestOptions, (data) => renderRun(data)
+  makeAjaxRequest
+    type: "POST"
+    endpoint: "runs"
+    data: requestOptions
+    success: (data) => renderRun(data)

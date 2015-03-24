@@ -13,7 +13,7 @@
     {
       "matches": ["https://github.com/*/*/pull/*"],
       "css": ["mystyles.css"],
-      "js": ["jquery.js", "myscript.js"]
+      "js": ["jquery.js", "templates.js", "myscript.js"]
     }
   ]
 }
