@@ -57,4 +57,13 @@ Chrome extension to squirt Rainforest into Pull Requests
               .,coxO0KXXXXXXXKK0OOxdoc:,..
                         ...
                         
-```                        
+```
+
+# TODO
+
+- be able to configure the API key
+- be able to choose the app to run against (it uses only the tag and environment for now)
+- be able to add a ad-hoc URL (use case: run the suite on an ad-hoc env like a Fourchette fork)
+- make it nicer (red & green for status)
+- create test?
+
