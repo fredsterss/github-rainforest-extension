@@ -19,4 +19,3 @@ Chrome extension to squirt Rainforest into Pull Requests
 
 ### WAT IT DO???
 ![](http://f.cl.ly/items/0B2s3g3G3c1E3G040Y3j/Screen%20Shot%202015-03-24%20at%2012.39.32%20AM.png)
->>>>>>> 75adbeffb0013b7c58eed573335ad86225350aad
