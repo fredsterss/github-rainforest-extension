@@ -55,4 +55,6 @@ Chrome extension to squirt Rainforest into Pull Requests
                         ...
                         
 ```                        
-http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system
+- http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system
+- update the token to be urs
+- do not make public
