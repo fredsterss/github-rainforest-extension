@@ -5,9 +5,17 @@ Chrome extension to squirt Rainforest into Pull Requests
 ![](http://f.cl.ly/items/0B2s3g3G3c1E3G040Y3j/Screen%20Shot%202015-03-24%20at%2012.39.32%20AM.png)
 
 ## HOW I UZE????
-- http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system
-- update the token to be urs
-- do not make public
+1. Download or clone this repo
+2. In the `myscript.js` file, change `YOUR_API_KEY` by your Rainforest QA API key. **DO NOT PUBLISH THAT FILE ANYWHERE!!!**
+3. Navigate to chrome://extensions/
+4. Click on "Load Unpacked Extension"
+5. Select the folder where you downloaded the extension
+
+Less user friendly version:
+1. http://superuser.com/questions/247651/how-does-one-install-an-extension-for-chrome-browser-from-the-local-file-system
+2. update the token to be urs
+3. do not make public
+
 ```txt
                                        .....'',;;::cccllllllllllllcccc:::;;,,,''...'',,'..
                             ..';cldkO00KXNNNNXXXKK000OOkkkkkxxxxxddoooddddddxxxxkkkkOO0XXKx:.
