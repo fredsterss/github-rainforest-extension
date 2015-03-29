@@ -9,7 +9,7 @@
       dataType: "json",
       data: options.data || {},
       headers: {
-        CLIENT_TOKEN: "08b8bc4f0cec845a37f9266918e83e98"
+        CLIENT_TOKEN: "YOUR_TOKEN"
       },
       success: (function(_this) {
         return function(data) {
