@@ -18,6 +18,8 @@ renderRun = (run, key) ->
   $(".rainforest-#{key}-runs").before(tmpl()) unless $(".rainforest-#{key}-title").length
   $(".rainforest-#{key}-runs").append @runHistoryItemTmpl(run)
 
+addPoller = (options) ->
+  console.log "polling", options
 
 #
 # Build UI
@@ -31,7 +33,9 @@ makeAjaxRequest
   endpoint: "runs"
   data:
     state: "in_progress"
-  success: (data) => renderRun(run, "in-progress") for run, i in data
+  success: (data) =>
+    renderRun(run, "in-progress") for run, i in data
+    addPoller(endpoint: "runs", state: "in_progress") if data.length > 0
 
 # get and render recent runs
 makeAjaxRequest
@@ -71,4 +75,6 @@ $('.run-rainforest').on "click", ->
     type: "POST"
     endpoint: "runs"
     data: requestOptions
-    success: (data) => renderRun(data, "in-progress")
+    success: (data) =>
+      renderRun(data, "in-progress")
+      addPoller endpoint: "runs", data: {state: "in_progress"}
